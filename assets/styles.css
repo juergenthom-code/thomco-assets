@@ -196,7 +196,7 @@ h2.sec{font-size:clamp(32px,4vw,54px);color:#fff;margin-bottom:20px;max-width:20
 /* glinsen wordmark */
 .glinsen{position:relative;display:inline-flex;align-items:baseline;font-family:var(--display);font-weight:500;letter-spacing:.03em;line-height:1;color:#F2F5FA}
 .glinsen .i{position:relative;display:inline-block}
-.glinsen .i svg{position:absolute;left:50%;top:-.17em;width:.5em;height:.5em;margin-left:-.25em;overflow:visible}
+.glinsen .i svg{position:absolute;left:50%;top:-.13em;width:.5em;height:.5em;max-width:none;margin:0;transform:translateX(-53%);overflow:visible}
 .light .glinsen{color:var(--ink)}
 
 /* contact */
@@ -512,3 +512,10 @@ body.cinema-open{overflow:hidden}
 @media(max-width:1024px){.prod-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .hero-film .hero-video{object-position:100% 50%}
 @media(max-width:900px){.hero-film .hero-video{object-position:50% 40%}}
+
+/* ---------- v10: area films behind the ambient sky ---------- */
+.page-film .area-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:.42}
+.page-film canvas{mix-blend-mode:screen;opacity:.9}
+.page-film::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,18,32,.88) 0%,rgba(10,18,32,.6) 50%,rgba(10,18,32,.3) 100%),linear-gradient(180deg,rgba(10,18,32,.35),transparent 30%,rgba(10,18,32,.6) 100%);z-index:0}
+.page-film canvas,.page-film .wrap{position:relative}
+.page-film canvas{position:absolute}
