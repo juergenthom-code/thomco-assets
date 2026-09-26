@@ -113,15 +113,23 @@ if (!location.hash) window.scrollTo(0, 0);
   var frames = document.querySelectorAll('.film-frame');
   function filmScale(){ if(reduced) return; var vh = window.innerHeight; frames.forEach(function(f){ var r = f.getBoundingClientRect(); var p = 1 - Math.min(1, Math.max(0, (r.top + r.height*0.5 - vh*0.55) / (vh*0.55))); f.style.setProperty('--fs', (0.9 + 0.1*p).toFixed(4)); }); }
   window.addEventListener('scroll', filmScale, {passive:true}); window.addEventListener('resize', filmScale); filmScale();
-  // cinema overlay
-  var cin = document.getElementById('cinema'); if(!cin) return;
-  var v = cin.querySelector('video'), opener = null;
-  if (window.matchMedia('(max-width: 900px)').matches) { cin.querySelectorAll('source[data-src-m]').forEach(function(sr){ sr.setAttribute('src', sr.getAttribute('data-src-m')); }); if (v.getAttribute('data-poster-m')) v.setAttribute('poster', v.getAttribute('data-poster-m')); cin.classList.add('portrait'); v.load(); }
-  function open(btn){ opener = btn || null; cin.hidden = false; cin.setAttribute('aria-hidden','false'); document.body.classList.add('cinema-open'); requestAnimationFrame(function(){ cin.classList.add('open'); }); try { v.currentTime = 0; } catch(e){} var p = v.play(); if (p && p.catch) p.catch(function(){}); }
-  function close(){ cin.classList.remove('open'); document.body.classList.remove('cinema-open'); v.pause(); setTimeout(function(){ cin.hidden = true; cin.setAttribute('aria-hidden','true'); }, 350); if (opener && opener.focus) opener.focus(); }
-  document.querySelectorAll('[data-cinema]').forEach(function(b){ b.addEventListener('click', function(e){ e.preventDefault(); open(b); }); });
-  cin.querySelector('[data-cinema-close]').addEventListener('click', close);
-  cin.addEventListener('click', function(e){ if (e.target === cin) close(); });
-  v.addEventListener('ended', function(){ setTimeout(close, 600); });
-  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && !cin.hidden) close(); });
+  // contact form: compose an email (no backend, nothing stored)
+  document.querySelectorAll('form.cform[data-mailto]').forEach(function(f){
+    f.addEventListener('submit', function(e){
+      e.preventDefault();
+      var bad = null;
+      f.querySelectorAll('[required]').forEach(function(el){ var ok = el.value.trim() !== '' && (el.type !== 'email' || /.+@.+\..+/.test(el.value)); el.classList.toggle('err', !ok); el.setAttribute('aria-invalid', ok ? 'false' : 'true'); if(!ok && !bad) bad = el; });
+      if (bad) { bad.focus(); return; }
+      var de = (document.documentElement.lang || 'de') === 'de';
+      var g = function(n){ var el = f.elements[n]; return el ? el.value.trim() : ''; };
+      var subject = (de ? 'Anfrage' : 'Enquiry') + ' · ' + g('topic') + ' · ' + g('name') + (g('company') ? ' (' + g('company') + ')' : '');
+      var lines = [g('msg'), '', '—', (de ? 'Name: ' : 'Name: ') + g('name')];
+      if (g('company')) lines.push((de ? 'Unternehmen: ' : 'Company: ') + g('company'));
+      lines.push((de ? 'E-Mail: ' : 'Email: ') + g('email'));
+      if (g('phone')) lines.push((de ? 'Telefon: ' : 'Phone: ') + g('phone'));
+      lines.push((de ? 'Thema: ' : 'Topic: ') + g('topic'));
+      window.location.href = 'mailto:' + f.getAttribute('data-mailto') + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
+    });
+    f.querySelectorAll('input,textarea').forEach(function(el){ el.addEventListener('input', function(){ if (el.classList.contains('err') && el.value.trim()) { el.classList.remove('err'); el.setAttribute('aria-invalid','false'); } }); });
+  });
 })();
