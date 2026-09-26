@@ -196,7 +196,7 @@ h2.sec{font-size:clamp(32px,4vw,54px);color:#fff;margin-bottom:20px;max-width:20
 /* glinsen wordmark */
 .glinsen{position:relative;display:inline-flex;align-items:baseline;font-family:var(--display);font-weight:500;letter-spacing:.03em;line-height:1;color:#F2F5FA}
 .glinsen .i{position:relative;display:inline-block}
-.glinsen .i svg{position:absolute;left:50%;top:-.06em;width:.3em;height:.3em;margin-left:-.15em}
+.glinsen .i svg{position:absolute;left:50%;top:-.17em;width:.5em;height:.5em;margin-left:-.25em;overflow:visible}
 .light .glinsen{color:var(--ink)}
 
 /* contact */
@@ -479,3 +479,36 @@ body.cinema-open{overflow:hidden}
 .marquee.light{background:var(--paper2);border-top-color:var(--ink-line);border-bottom-color:var(--ink-line)}
 .marquee.light span{color:#6B7789}
 .marquee.light span::after{background:#C6A15B}
+
+/* ---------- v8: film in the hero ---------- */
+.hero-film .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;background:var(--bg)}
+.hero-film::after{background:linear-gradient(90deg,rgba(10,18,32,.55) 0%,rgba(10,18,32,.25) 45%,rgba(10,18,32,0) 70%),radial-gradient(120% 90% at 50% 50%,transparent 55%,rgba(5,9,15,.55) 100%),linear-gradient(180deg,rgba(5,9,15,.35),transparent 22%,transparent 80%,rgba(5,9,15,.55))}
+@media(max-width:900px){.hero-film::after{background:linear-gradient(180deg,rgba(10,18,32,.25) 0%,rgba(10,18,32,0) 30%,rgba(10,18,32,.35) 55%,rgba(10,18,32,.9) 100%)}}
+
+/* ---------- v9: solutions dropdown, product pages, new visuals ---------- */
+.navitem{position:relative;display:flex;align-items:center;height:100%}
+.navitem .menu{position:absolute;top:calc(100% + 4px);left:-24px;padding-top:14px;opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .2s,transform .2s,visibility 0s .2s}
+.navitem:hover .menu,.navitem:focus-within .menu{opacity:1;visibility:visible;transform:none;transition:opacity .2s,transform .2s}
+.menu-grid{display:grid;grid-template-columns:repeat(3,220px);gap:6px;padding:12px;border-radius:16px;background:rgba(14,27,46,.96);border:1px solid var(--line2);box-shadow:0 30px 80px rgba(0,0,0,.45);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.menu-grid a{display:flex;flex-direction:column;gap:3px;padding:12px 14px;border-radius:10px;font-size:14px}
+.menu-grid a::after{display:none}
+.menu-grid a b{font-family:var(--display);font-weight:500;color:#fff;font-size:15px}
+.menu-grid a span{color:var(--muted);font-size:12.5px;letter-spacing:0}
+.menu-grid a:hover{background:rgba(198,161,91,.14)}
+.nav.on-light .menu-grid{background:rgba(255,255,255,.97);border-color:var(--ink-line);box-shadow:0 30px 80px rgba(11,18,32,.18)}
+.nav.on-light .menu-grid a b{color:var(--ink)}.nav.on-light .menu-grid a span{color:var(--ink-muted)}.nav.on-light .menu-grid a:hover{background:rgba(198,161,91,.16)}
+@media(max-width:900px){.navitem{display:contents}.navitem .menu{display:none}}
+.area-line{margin:26px 0 0;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.area-line a{color:var(--gold-soft);border-bottom:1px solid rgba(198,161,91,.4)}
+.page-hero .wrap .area-line{padding:0}
+.v-wave rect{fill:rgba(255,255,255,.28);transform-box:fill-box;transform-origin:center;animation:wave 2.4s ease-in-out infinite}
+.v-wave rect:nth-child(4n){fill:var(--gold)}.v-wave rect:nth-child(4n+2){fill:var(--gold-soft);opacity:.8}
+@keyframes wave{0%,100%{transform:scaleY(.45)}50%{transform:scaleY(1)}}
+.v-sun line{stroke:var(--gold);stroke-width:2;stroke-linecap:round;opacity:.25;animation:sunray 3s ease-in-out infinite}
+@keyframes sunray{0%,100%{opacity:.2}50%{opacity:1}}
+.v-sun .disc{fill:none;stroke:var(--gold-soft);stroke-width:2}
+.v-sun .cell{fill:rgba(255,255,255,.1);stroke:rgba(255,255,255,.22);animation:vfill 6s ease-in-out infinite;opacity:0}
+.prod-grid .card{padding:26px 24px}.prod-grid .card h3{font-size:19px}.prod-grid .card p{font-size:14.5px}.prod-grid .venture-mark{font-size:13.5px}.prod-grid .tag{font-size:10px;padding:4px 8px}
+@media(max-width:1024px){.prod-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.hero-film .hero-video{object-position:100% 50%}
+@media(max-width:900px){.hero-film .hero-video{object-position:50% 40%}}

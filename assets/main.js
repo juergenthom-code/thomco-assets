@@ -32,7 +32,7 @@
   function par(){ if(reduced) return; var vh=window.innerHeight; bands.forEach(function(img){ var r=img.parentElement.getBoundingClientRect(); if(r.bottom<0||r.top>vh) return; var p=(r.top+r.height/2-vh/2)/vh; img.style.translate='0 '+(p*-40)+'px'; }); }
   window.addEventListener('scroll', par, {passive:true}); par();
   // hero: mouse parallax on sky + copy
-  var hero = document.querySelector('.hero-sky'), sky = hero && hero.querySelector('canvas'), copy = hero && hero.querySelector('.hero-copy');
+  var hero = document.querySelector('.hero-sky'), sky = hero && hero.querySelector('canvas, video.hero-video'), copy = hero && hero.querySelector('.hero-copy');
   var mx = 0, my = 0, sz = 1;
   function applySky(){ if(sky) sky.style.transform='translate('+(mx*-14)+'px,'+(my*-10)+'px) scale('+(1.03*sz)+')'; }
   if (hero && !reduced && matchMedia('(pointer:fine)').matches) {
