@@ -1,3 +1,4 @@
-# Skyclar website
+# Skyclar website assets
 
-Built output of the Skyclar site (DE/EN). Deployed to skyclar.vercel.app via Vercel. Source: branch main, folder skyclar/source.
+Static assets (CSS, JS, film, footage, logos) of the Skyclar website, served via jsDelivr for skyclar.vercel.app.
+Source: branch main, folder skyclar/source.
